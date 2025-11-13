@@ -26,6 +26,7 @@ Select the project called "TechStoreNuevo" and clic in "Open Project".
 Select the main class called TechStore.java.
 Clic in "Run Project" or do left clic in the main class and then clic in "Run File".
 In the login, you can log in with one of these USERS: super/tech/cashier and its PASSWORDS: 1234.
+
 ❗ Requirements ❗
 Java 17+.
 Java Swing.

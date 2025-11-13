@@ -17,6 +17,18 @@ public class ProductoFisico extends Productos {
         this.ubicacionTienda = ubicacionTienda;
         this.fechaIngreso = LocalDate.now();
     }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    public int getCodigoBarra() {
+        return codigoBarra;
+    }
     
     @Override
     public double calcularPrecio() {
@@ -46,12 +58,12 @@ public class ProductoFisico extends Productos {
     
     @Override
     public String toString(){
-        return "Codigo de barras: " + this.codigoBarra +
-                "\nProducto: " + this.nombre + 
-                "\nStock: " + this.stock + " unidades" +
-                "\nDescuento: " + this.descuento + "%" +
-                "\nUbicacion: " + this.ubicacionTienda + 
-                "\nPrecio: " + this.precio +
-                "\nFecha de ingreso: " + this.fechaIngreso;
+        return "Code: " + this.codigoBarra +
+                "\nProduct: " + this.nombre + 
+                "\nStock: " + this.stock + " units" +
+                "\nDiscount: " + this.descuento + "%" +
+                "\nLocation: " + this.ubicacionTienda + 
+                "\nPrice: " + this.precio +
+                "\nEntry date: " + this.fechaIngreso;
     }
 }

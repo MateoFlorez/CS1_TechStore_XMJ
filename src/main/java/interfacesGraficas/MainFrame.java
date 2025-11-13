@@ -31,7 +31,7 @@ public class MainFrame extends javax.swing.JFrame {
         sistemaProducto = new SistemaProducto();
         
         panProducto = new PanelProducto(sistemaProducto);
-        panCliente = new PanelCliente(sistemaCliente);
+        panCliente = new PanelCliente(sistemaCliente,sistemaProducto);
         
         panProducto.setBounds(300, 0, 300, 500);
         panCliente.setBounds(300, 0, 300, 500);

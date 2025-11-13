@@ -6,6 +6,7 @@ package interfacesGraficas;
 
 import com.mycompany.techstore.Cliente;
 import com.mycompany.techstore.SistemaCliente;
+import com.mycompany.techstore.SistemaProducto;
 import interfacesGraficas.AgregarCliente;
 
 /**
@@ -20,12 +21,14 @@ public class PanelCliente extends javax.swing.JPanel {
     
     
     private SistemaCliente sistemaCliente;
+    private SistemaProducto sistemaProducto;
     
     
 
-    public PanelCliente(SistemaCliente sistemaCliente) {
+    public PanelCliente(SistemaCliente sistemaCliente, SistemaProducto sistemaProducto) {
         initComponents();
         this.sistemaCliente = sistemaCliente;
+        this.sistemaProducto = sistemaProducto;
     }
 
     /**
@@ -123,7 +126,7 @@ public class PanelCliente extends javax.swing.JPanel {
 
     private void btnRegistrarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarCompraActionPerformed
         // TODO add your handling code here:
-        frAgregarCompra = new FrameAgregarCompra(sistemaCliente);
+        frAgregarCompra = new FrameAgregarCompra(sistemaCliente, sistemaProducto);
         frAgregarCompra.setVisible(true);
         frAgregarCompra.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnRegistrarCompraActionPerformed

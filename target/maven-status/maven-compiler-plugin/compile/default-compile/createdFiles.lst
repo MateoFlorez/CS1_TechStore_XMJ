@@ -25,6 +25,7 @@ interfacesGraficas\AgregarCliente.class
 interfacesGraficas\PanelProducto$4.class
 interfacesGraficas\PanelCliente.class
 com\mycompany\techstore\MetodoPago.class
+interfacesGraficas\FrameAgregarCompra$3.class
 interfacesGraficas\FrameAgregarProducto.class
 com\mycompany\techstore\Compra.class
 com\mycompany\techstore\EmpleadosCTS.class
@@ -49,4 +50,5 @@ interfacesGraficas\FrameAgregarCompra$1.class
 com\mycompany\techstore\ServicioDigital.class
 com\mycompany\techstore\TarjetaCredito.class
 interfacesGraficas\AgregarCliente$1.class
+interfacesGraficas\FrameAgregarCompra$4.class
 interfacesGraficas\FrameAgregarCompra.class

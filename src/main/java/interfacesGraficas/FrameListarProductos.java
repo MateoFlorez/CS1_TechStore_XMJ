@@ -67,10 +67,10 @@ public class FrameListarProductos extends javax.swing.JFrame {
 
     public void mostrarProducto() {
         StringBuilder sb = new StringBuilder();
-        sb.append("----- LISTA PRODUCTOS -----\n");
+        sb.append("----- PRODUCTS LIST -----\n");
 
         for (ProductoFisico pf : sistemaProducto.getListaProductos().values()) {
-            sb.append(pf).append("\n");
+            sb.append(pf).append("\n--------------------------------------------\n");
         }
 
         txtListarProductos.setText(sb.toString());

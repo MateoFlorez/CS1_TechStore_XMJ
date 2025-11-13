@@ -70,7 +70,7 @@ public class FrameListarServicios extends javax.swing.JFrame {
         sb.append("----- SERVICES LIST -----\n");
 
         for (ServicioDigital pf : sistemaProducto.getListaServicios().values()) {
-            sb.append(pf).append("\n");
+            sb.append(pf).append("\n--------------------------------------------\n");
         }
 
         txtListarServicios.setText(sb.toString());

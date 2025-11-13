@@ -5,8 +5,15 @@
 package interfacesGraficas;
 
 import com.mycompany.techstore.Cliente;
+import com.mycompany.techstore.ProductoFisico;
 import com.mycompany.techstore.SistemaCliente;
+import com.mycompany.techstore.SistemaProducto;
+import java.util.*;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,14 +24,38 @@ public class FrameAgregarCompra extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrameAgregarCompra.class.getName());
 
     private SistemaCliente sistemaCliente;
+    private SistemaProducto sistemaProducto;
     AgregarCliente addCliente;
+    
+    private double totalCompra = 0;
+    private java.util.List<ProductoFisico> carrito = new ArrayList<>();
+    private JTextArea txtCarrito;
+    
+    private DefaultTableModel modeloTabla;
+    private JTable tablaProductos;
 
-    /**
-     * Creates new form FrameAgregarCompra
-     */
-    public FrameAgregarCompra(SistemaCliente sistemaCliente) {
+    public FrameAgregarCompra(SistemaCliente sistemaCliente, SistemaProducto sistemaProducto) {
         this.sistemaCliente = sistemaCliente;
+        this.sistemaProducto = sistemaProducto;
         initComponents();
+        
+        modeloTabla = new DefaultTableModel(new Object[]{"Código", "Nombre", "Precio", "Stock"}, 0);
+        tablaProductos = new JTable(modeloTabla);
+        JScrollPane scrollTabla = new JScrollPane(tablaProductos);
+        scrollTabla.setBounds(30, 120, 520, 150);
+        add(scrollTabla);
+        
+        /*JScrollPane scrollTabla = new JScrollPane(tableProduct);
+        scrollTabla.setBounds(30, 60, 520, 150);
+        add(scrollTabla);*/
+        
+        txtCarrito = new JTextArea();
+        txtCarrito.setEditable(false);
+        JScrollPane scrollCarrito = new JScrollPane(txtCarrito);
+        scrollCarrito.setBounds(30, 310, 520, 120);
+        add(scrollCarrito);
+        
+        cargarProductos();
     }
 
     /**
@@ -36,14 +67,31 @@ public class FrameAgregarCompra extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtCedula = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtTotalCompra = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
         btnAgregarCliente = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        txtTotal = new javax.swing.JLabel();
+        btnAddProduct = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -54,14 +102,22 @@ public class FrameAgregarCompra extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("ID");
 
+        txtCedula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCedulaActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Total Purchase");
 
-        jButton1.setBackground(new java.awt.Color(0, 153, 51));
-        jButton1.setText("Save");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnGuardar.setBackground(new java.awt.Color(0, 153, 51));
+        btnGuardar.setForeground(new java.awt.Color(0, 0, 0));
+        btnGuardar.setText("Purchase");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnGuardarActionPerformed(evt);
             }
         });
 
@@ -79,32 +135,47 @@ public class FrameAgregarCompra extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Register a new client?");
 
+        txtTotal.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
+        txtTotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtTotal.setText("0");
+
+        btnAddProduct.setBackground(new java.awt.Color(153, 255, 102));
+        btnAddProduct.setForeground(new java.awt.Color(0, 0, 0));
+        btnAddProduct.setText("Add");
+        btnAddProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddProductActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Cart");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(txtTotal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(209, 209, 209))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(126, 126, 126)
-                        .addComponent(txtTotalCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(164, 164, 164)
-                        .addComponent(jButton1)))
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addGap(188, 188, 188)
+                .addComponent(btnAgregarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(190, 191, Short.MAX_VALUE))
+            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(122, 122, 122))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnAgregarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(142, 142, 142))))
+                .addComponent(btnAddProduct)
+                .addGap(18, 18, 18)
+                .addComponent(btnGuardar)
+                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,32 +184,72 @@ public class FrameAgregarCompra extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(199, 199, 199)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 199, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddProduct)
+                    .addComponent(btnGuardar))
+                .addGap(23, 23, 23)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtTotalCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAgregarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAgregarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void cargarProductos() {
+        modeloTabla.setRowCount(0); // limpiar
+        for (ProductoFisico pf : sistemaProducto.getListaProductos().values()) {
+            modeloTabla.addRow(new Object[]{
+                pf.getCodigoBarra(),
+                pf.getNombre(),
+                pf.getPrecio(),
+                pf.getStock()
+            });
+        }
+    }
+    
+    private void agregarProducto() {
+        int filaSeleccionada = tablaProductos.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(this, "Selecciona un producto primero.");
+            return;
+        }
+
+        int codigo = (int) modeloTabla.getValueAt(filaSeleccionada, 0);
+        ProductoFisico producto = sistemaProducto.getListaProductos().get(codigo);
+
+        if (producto.getStock() <= 0) {
+            JOptionPane.showMessageDialog(this, "No hay stock disponible para este producto.");
+            return;
+        }
+
+        carrito.add(producto);
+        totalCompra += producto.getPrecio();
+        txtCarrito.append(producto.getNombre() + " - $" + producto.getPrecio() + "\n");
+        String txtTotalCompra = String.valueOf(totalCompra);
+        txtTotal.setText(txtTotalCompra);
+        
+        producto.setStock(producto.getStock() - 1);
+        modeloTabla.setValueAt(producto.getStock(), filaSeleccionada, 3);
+        
+    }
+    
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         try {
 
             String textoCedula = txtCedula.getText();
             int cedula = Integer.parseInt(textoCedula);
-            String textoTotalCompra = txtTotalCompra.getText();
-            double totalCompra = Double.parseDouble(textoTotalCompra);
 
             Cliente cliente = sistemaCliente.getListaClientes().get(cedula);
 
@@ -147,7 +258,7 @@ public class FrameAgregarCompra extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this,
                         "Purchase detail"
                         + "\nClient: " + cedula
-                        + "\nPurchase total: $" + totalCompra
+                        + "\nTotal purchase: $" + totalCompra
                 );
                 this.setVisible(false);
                 return;
@@ -170,7 +281,7 @@ public class FrameAgregarCompra extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarClienteActionPerformed
         // TODO add your handling code here:
@@ -179,15 +290,28 @@ public class FrameAgregarCompra extends javax.swing.JFrame {
         addCliente.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnAgregarClienteActionPerformed
 
+    private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCedulaActionPerformed
+
+    private void btnAddProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProductActionPerformed
+        // TODO add your handling code here:
+        agregarProducto();
+    }//GEN-LAST:event_btnAddProductActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddProduct;
     private javax.swing.JButton btnAgregarCliente;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField txtCedula;
-    private javax.swing.JTextField txtTotalCompra;
+    private javax.swing.JLabel txtTotal;
     // End of variables declaration//GEN-END:variables
 }

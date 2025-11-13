@@ -31,9 +31,9 @@ public class ServicioDigital extends Productos {
     
     @Override
     public String toString(){
-        return "Nombre del servicio: " + this.nombre + 
-                "\nPrecio del servicio: " + this.precio + 
-                "\nDuracion del servicio: " + this.duracion + " minutos." +
-                "\nDescripcion: " + this.descripcion;
+        return "Service name: " + this.nombre + 
+                "\nService price: " + this.precio + 
+                "\nService duration: " + this.duracion + " minutes." +
+                "\nDescription: " + this.descripcion;
     }
 }

@@ -28,21 +28,21 @@ public class Cliente{
     @Override
     public String toString(){
         return "ID: " + this.id + 
-                "\nNombre: " + this.nombre + 
-                "\nCedula: " + this.cedula + 
-                "\nTelefono: " + this.telefono +
-                "\nDireccion: " + this.direccion +
-                "\nPuntos de fidelidad: " + this.ptsFidelidad +
-                "\nCompras realizadas: " + this.historialDeCompra.size();
+                "\nName: " + this.nombre + 
+                "\nID: " + this.cedula + 
+                "\nPhone number: " + this.telefono +
+                "\nAddress: " + this.direccion +
+                "\nFidelity points: " + this.ptsFidelidad +
+                "\nPurchases made: " + this.historialDeCompra.size();
     }
     
     public void registrarCompra(double monto){
         historialDeCompra.add(new Compra(monto));
         int pts = (int)(monto/10);
         ptsFidelidad = ptsFidelidad + pts;
-        System.out.println("Nombre: " + this.nombre + 
-                "\nPuntos por la compra: " + pts +
-                "\nTotal puntos: " + this.ptsFidelidad);
+        System.out.println("Name: " + this.nombre + 
+                "\nPurchase points: " + pts +
+                "\nTotal points: " + this.ptsFidelidad);
     }
     
     public double calcularDescuentoAdicional(){

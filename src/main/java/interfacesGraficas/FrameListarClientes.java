@@ -68,10 +68,10 @@ public class FrameListarClientes extends javax.swing.JFrame {
 
     public void mostrarClientes() {
         StringBuilder sb = new StringBuilder();
-        sb.append("----- LISTA CLIENTES -----\n");
+        sb.append("----- CLIENTS LIST -----\n");
 
         for (Cliente c : sistemaCliente.getListaClientes().values()) {
-            sb.append(c).append("\n");
+            sb.append(c).append("\n--------------------------------------------\n");
         }
 
         txtListarClientes.setText(sb.toString());

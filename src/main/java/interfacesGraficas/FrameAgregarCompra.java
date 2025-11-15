@@ -8,6 +8,7 @@ import com.mycompany.techstore.Cliente;
 import com.mycompany.techstore.ProductoFisico;
 import com.mycompany.techstore.SistemaCliente;
 import com.mycompany.techstore.SistemaProducto;
+import java.text.DecimalFormat;
 import java.util.*;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -235,6 +236,8 @@ public class FrameAgregarCompra extends javax.swing.JFrame {
 
         carrito.add(producto);
         totalCompra += producto.getPrecio();
+        DecimalFormat df = new DecimalFormat("#.00");
+        df.format(totalCompra);
         txtCarrito.append(producto.getNombre() + " - $" + producto.getPrecio() + "\n");
         String txtTotalCompra = String.valueOf(totalCompra);
         txtTotal.setText(txtTotalCompra);
@@ -252,24 +255,27 @@ public class FrameAgregarCompra extends javax.swing.JFrame {
             int cedula = Integer.parseInt(textoCedula);
 
             Cliente cliente = sistemaCliente.getListaClientes().get(cedula);
+            
+            DecimalFormat df = new DecimalFormat("#.00");
+            double totalCompraIva = totalCompra + (totalCompra * 0.16);
 
             if (cliente == null) {
                 JOptionPane.showMessageDialog(this, "There is no record with this ID number: " + cedula);
                 JOptionPane.showMessageDialog(this,
                         "Purchase detail"
                         + "\nClient: " + cedula
-                        + "\nTotal purchase: $" + totalCompra
+                        + "\nTotal purchase: $" + df.format(totalCompraIva)
                 );
                 this.setVisible(false);
                 return;
             }
 
-            cliente.registrarCompra(totalCompra);
+            cliente.registrarCompra(totalCompraIva);
 
             JOptionPane.showMessageDialog(this,
                     "Successfully registered."
                     + "\nClient: " + cliente.getNombre()
-                    + "\nPurchase total: $" + totalCompra
+                    + "\nPurchase total: $" + df.format(totalCompraIva)
                     + "\nAccumulated points: " + cliente.getPtsFidelidad()
             );
 

@@ -6,15 +6,18 @@ package interfacesGraficas;
 
 import com.mycompany.techstore.ServicioDigital;
 import com.mycompany.techstore.SistemaProducto;
+import java.io.File;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author pc
  */
 public class FrameListarServicios extends javax.swing.JFrame {
-    
+
     private SistemaProducto sistemaProducto;
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrameListarServicios.class.getName());
 
     /**
@@ -56,7 +59,7 @@ public class FrameListarServicios extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
                 .addContainerGap())
@@ -64,6 +67,8 @@ public class FrameListarServicios extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    
 
     public void showServices() {
         StringBuilder sb = new StringBuilder();

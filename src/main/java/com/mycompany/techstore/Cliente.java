@@ -85,7 +85,4 @@ public class Cliente{
         return ptsFidelidad;
     }
     
-    
-
-
 }

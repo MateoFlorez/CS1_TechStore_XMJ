@@ -1,4 +1,6 @@
+com\mycompany\techstore\TicketVenta.class
 com\mycompany\techstore\PagoCombinado.class
+interfacesGraficas\FrameListarProductos$1.class
 interfacesGraficas\FrameAgregarProducto$1.class
 com\mycompany\techstore\TarjetaDebito.class
 interfacesGraficas\PanelCliente$1.class

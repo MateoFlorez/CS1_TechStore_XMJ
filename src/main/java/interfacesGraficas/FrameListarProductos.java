@@ -6,6 +6,9 @@ package interfacesGraficas;
 
 import com.mycompany.techstore.ProductoFisico;
 import com.mycompany.techstore.SistemaProducto;
+import java.io.File;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -37,6 +40,7 @@ public class FrameListarProductos extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         txtListarProductos = new javax.swing.JTextArea();
+        btnCargar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -45,26 +49,66 @@ public class FrameListarProductos extends javax.swing.JFrame {
         txtListarProductos.setRows(5);
         jScrollPane1.setViewportView(txtListarProductos);
 
+        btnCargar.setText("Import CSV");
+        btnCargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCargarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnCargar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+                .addComponent(btnCargar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
+        // TODO add your handling code here:
+        cargarProductosDesdeArchivo();
+        this.dispose();
+    }//GEN-LAST:event_btnCargarActionPerformed
+
+    private void cargarProductosDesdeArchivo() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Seleccionar archivo CSV de productos");
+
+        // Filtrar solo archivos .csv
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Archivos CSV", "csv"));
+
+        int resultado = fileChooser.showOpenDialog(this);
+
+        if (resultado == JFileChooser.APPROVE_OPTION) {
+            File archivoCSV = fileChooser.getSelectedFile();
+
+            try {
+                sistemaProducto.cargarProductosDesdeCSV(archivoCSV);
+                JOptionPane.showMessageDialog(this, "Productos importados correctamente.");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error al cargar archivo: " + e.getMessage());
+            }
+        }
+    }
+    
     public void mostrarProducto() {
         StringBuilder sb = new StringBuilder();
         sb.append("----- PRODUCTS LIST -----\n");
@@ -78,6 +122,7 @@ public class FrameListarProductos extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCargar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea txtListarProductos;
     // End of variables declaration//GEN-END:variables

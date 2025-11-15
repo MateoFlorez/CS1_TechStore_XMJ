@@ -30,6 +30,9 @@ public class MainFrame extends javax.swing.JFrame {
         sistemaCliente = new SistemaCliente();
         sistemaProducto = new SistemaProducto();
         
+        sistemaProducto.cargarProductosDesdeCSV();
+        sistemaCliente.cargarClientesDesdeCSV();
+        
         panProducto = new PanelProducto(sistemaProducto);
         panCliente = new PanelCliente(sistemaCliente,sistemaProducto);
         

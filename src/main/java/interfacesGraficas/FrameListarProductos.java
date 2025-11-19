@@ -90,7 +90,7 @@ public class FrameListarProductos extends javax.swing.JFrame {
 
     private void cargarProductosDesdeArchivo() {
         JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Seleccionar archivo CSV de productos");
+        fileChooser.setDialogTitle("Select a CSV file");
 
         // Filtrar solo archivos .csv
         fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Archivos CSV", "csv"));
@@ -102,9 +102,9 @@ public class FrameListarProductos extends javax.swing.JFrame {
 
             try {
                 sistemaProducto.cargarProductosDesdeCSV(archivoCSV);
-                JOptionPane.showMessageDialog(this, "Productos importados correctamente.");
+                JOptionPane.showMessageDialog(this, "Correctly imported products.");
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Error al cargar archivo: " + e.getMessage());
+                JOptionPane.showMessageDialog(this, "Error uploading file: " + e.getMessage());
             }
         }
     }
